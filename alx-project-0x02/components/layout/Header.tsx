@@ -1,7 +1,12 @@
-export default function Header() {
+import Link from "next/link";
+
+export default function  Header() {
   return (
-    <header className="p-4 bg-blue-600 text-white text-center">
-      <h1 className="text-2xl font-bold">My ALX Project Header</h1>
+    <header style={{ padding: "10px", background: "#eee"}}>
+      <nav>
+        <Link href="/home" style={{ marginRight: "15p"}}>Home</Link>
+        <Link href="/about">About</Link>
+      </nav>
     </header>
-  );
+  )
 }
