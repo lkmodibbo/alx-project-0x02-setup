@@ -12,4 +12,9 @@ export interface ButtonProps {
   shape: "rounded-sm" | "rounded-md" | "rounded-full";
   label: string;
 }
+export interface PostProps {
+  title: string;
+  content: string;
+  userId: number;
+}
 
