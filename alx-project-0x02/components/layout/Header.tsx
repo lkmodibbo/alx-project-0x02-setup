@@ -1,12 +1,21 @@
 import Link from "next/link";
 
-export default function  Header() {
+export default function Header() {
   return (
-    <header style={{ padding: "10px", background: "#eee"}}>
-      <nav>
-        <Link href="/home" style={{ marginRight: "15p"}}>Home</Link>
-        <Link href="/about">About</Link>
+    <header className="bg-gray-900 text-white p-4">
+      <nav className="flex gap-6">
+        <Link href="/home" className="hover:underline">
+          Home
+        </Link>
+
+        <Link href="/about" className="hover:underline">
+          About
+        </Link>
+
+        <Link href="/posts" className="hover:underline">
+          Posts
+        </Link>
       </nav>
     </header>
-  )
+  );
 }
