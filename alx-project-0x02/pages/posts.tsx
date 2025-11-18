@@ -1,27 +1,12 @@
-import { useEffect, useState } from "react";
 import Header from "@/components/layout/Header";
 import PostCard from "@/components/common/PostCard";
+import { type PostProps } from "@/interfaces";
 
-interface ApiPost {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
+interface PostsPageProps {
+  posts: PostProps[];
 }
 
-export default function PostsPage() {
-  const [posts, setPosts] = useState<ApiPost[]>([]);
-
-  useEffect(() => {
-    async function fetchPosts() {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-      const data = await response.json();
-      setPosts(data.slice(0, 10)); // Display first 10 posts
-    }
-
-    fetchPosts();
-  }, []);
-
+export default function PostsPage({ posts }: PostsPageProps) {
   return (
     <main>
       <Header />
@@ -29,15 +14,33 @@ export default function PostsPage() {
       <div className="p-6">
         <h1 className="text-2xl font-bold mb-4">Posts</h1>
 
-        {posts.map((post) => (
+        {posts.map((post, index) => (
           <PostCard
-            key={post.id}
+            key={index}
             title={post.title}
-            content={post.body}
+            content={post.content}
             userId={post.userId}
           />
         ))}
       </div>
     </main>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+
+  // Convert API fields to match PostProps
+  const posts: PostProps[] = data.slice(0, 10).map((post: any) => ({
+    title: post.title,
+    content: post.body,
+    userId: post.userId,
+  }));
+
+  return {
+    props: {
+      posts,
+    },
+  };
 }
